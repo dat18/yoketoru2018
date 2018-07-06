@@ -7,11 +7,11 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //score = 0;
-	}
+        GameSystem.Instance.ClearScore();
+    }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
         // Oキーが押されたか判定
         if (Input.GetKeyDown(KeyCode.O))
         {

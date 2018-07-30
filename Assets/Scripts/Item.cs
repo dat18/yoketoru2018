@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-
-    [SerializeField]
-    private int Point = 100;
-
     public static int Count
     {
         get;
@@ -30,7 +26,8 @@ public class Item : MonoBehaviour
     public void Pickup()
     {
         // 得点
-        GameSystem.Instance.AddScore(Point);
+        GameSystem.Instance.AddScore((int)GameManager.NowPoint);
+        GameManager.Instance.DrawPoint(transform.position, (int)GameManager.NowPoint);
 
         // 数を減らす
         Count--;

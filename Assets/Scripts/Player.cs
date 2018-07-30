@@ -12,8 +12,11 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private GameObject prefItem;
 
-    [SerializeField]
+    [TooltipAttribute("移動最高速度"), SerializeField]
     private float Speed = 10f;
+
+    [TooltipAttribute("方向を向く最大角度"), SerializeField]
+    private float MaxDegree = 45f;
 
     // Use this for initialization
     void Start () {
@@ -43,6 +46,12 @@ public class Player : MonoBehaviour {
         }
 
         rb.velocity = vel;
+
+        // 顔の向き
+        float mag = rb.velocity.magnitude * MaxDegree / Speed;
+        Vector3 veln = vel.normalized;
+        Quaternion rot = Quaternion.Euler(veln.y*mag, -veln.x * mag, 0f);
+        transform.rotation = rot;
     }
 
     private void OnDrawGizmos()

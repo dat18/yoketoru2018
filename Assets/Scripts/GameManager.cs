@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     private void Awake()
     {
         Instance = this;
+        Item.ClearCount();
     }
 
     // Use this for initialization

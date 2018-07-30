@@ -7,12 +7,23 @@ public class Player : MonoBehaviour {
 
     Rigidbody rb;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    private GameObject prefMiss;
+    [SerializeField]
+    private GameObject prefItem;
+
+    [SerializeField]
+    private float Speed = 10f;
+
+    // Use this for initialization
+    void Start () {
         rb = GetComponent<Rigidbody>();
 	}
 
 	void FixedUpdate () {
+        // プレイ中じゃない場合は、処理しない
+        if (!GameSystem.IsPlaying) return;
+
         // wpos = 目的の座標。ここに移動させたい
         Vector3 mpos = Input.mousePosition;
         mpos.z = -Camera.main.transform.position.z;
@@ -24,8 +35,15 @@ public class Player : MonoBehaviour {
 
         Vector3 vel = dist / Time.fixedDeltaTime;
 
+        // 最高速度をチェックする
+        float nextspd = vel.magnitude;
+        if (nextspd > Speed)
+        {
+            vel = vel.normalized * Speed;
+        }
+
         rb.velocity = vel;
-	}
+    }
 
     private void OnDrawGizmos()
     {
@@ -39,12 +57,33 @@ public class Player : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log(collision.gameObject.tag);
+        // プレイ中じゃない場合は、処理しない
+        if (!GameSystem.IsPlaying) return;
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
             SEManager.Instance.Play(SEManager.SE.MISS);
+            GameSystem.IsPlaying = false;
+            if (prefMiss != null)
+            {
+                Instantiate(prefMiss, transform.position, Quaternion.identity);
+            }
             SceneManager.LoadScene("GameOver", LoadSceneMode.Additive);
+        }
+        else if (collision.gameObject.CompareTag("Item"))
+        {
+            SEManager.Instance.Play(SEManager.SE.EAT);
+            if (prefItem != null)
+            {
+                Instantiate(prefItem, collision.transform.position, Quaternion.identity);
+            }
+            collision.gameObject.SendMessage("Pickup");
+            // アイテムをすべて取っていたらクリア
+            if (Item.Count <= 0)
+            {
+                GameSystem.IsPlaying = false;
+                SceneManager.LoadScene("Clear", LoadSceneMode.Additive);
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
@@ -35,5 +36,17 @@ public class Player : MonoBehaviour {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(wpos, 1f);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Debug.Log(collision.gameObject.tag);
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            SEManager.Instance.Play(SEManager.SE.MISS);
+            SceneManager.LoadScene("GameOver", LoadSceneMode.Additive);
+        }
+    }
+
 
 }

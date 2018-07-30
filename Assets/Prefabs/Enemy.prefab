@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4455390658932144}
   - component: {fileID: 54749115451183108}
   - component: {fileID: 135961499675603242}
+  - component: {fileID: 114990621924286476}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -85,6 +86,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: e62e02e86d5b1034a9ea6972e88a309c, type: 2}
   m_StaticBatchInfo:
@@ -128,6 +130,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114990621924286476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1401965727405858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3cbf1356f4b9745bcfdc50bff1f1ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinSpeed: 2
+  MaxSpeed: 5
 --- !u!135 &135961499675603242
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -10,6 +10,8 @@ public class GameSystem : Singleton<GameSystem> {
 
     int score;
 
+    public static bool IsPlaying = false;
+
     // Use this for initialization
     void Start () {
 

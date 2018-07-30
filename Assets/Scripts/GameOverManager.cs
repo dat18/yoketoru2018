@@ -7,7 +7,9 @@ public class GameOverManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        GameSystem.IsPlaying = false;
+        Time.timeScale = 0f;
+        GameManager.Instance.StopBGM();
 	}
 
 	// Update is called once per frame
